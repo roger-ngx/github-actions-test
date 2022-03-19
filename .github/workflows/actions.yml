@@ -1,14 +1,23 @@
 name: Actions Workflow
-on: [push]
+on:
+  # push:
+  # schedule:
+  #   - cron: "0 0 * * *"
+  pull_request:
+    types: [ opened, closed, reopened ]
 
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: List File
+        run: |
+          pwd
+          ls
       - name: Simple JS Action
         id: greet
         uses: actions/hello-world-javascript-action@v1
         with:
-          who-to-great: Roger
+          who-to-greet: Roger
       - name: Log Greeting Time
         run: echo "${{ steps.greet.outputs.time }}"
